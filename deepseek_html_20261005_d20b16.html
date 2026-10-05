@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tadka House - Family Garden Restaurant</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --gold: #D4AF37;
+            --gold-hover: #b8952b;
+            --dark-bg: #0f0f0f;
+            --sidebar-bg: #151515;
+            --card-bg: #1a1a1a;
+            --text-main: #f4f4f4;
+            --text-muted: #a0a0a0;
+            --veg-green: #2e7d32;
+            --nonveg-red: #c62828;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h2 {
+            font-family: var(--font-heading);
+            color: var(--gold);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 20px 0;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .nav-links li {
+            margin-bottom: 5px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 15px 25px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .sidebar-cta {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-gold {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--gold);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--gold-hover);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            min-height: 100vh;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-outline {
+            padding: 12px 30px;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        /* Section General */
+        section {
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+
+        .section-title .divider {
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 15px auto;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .about-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .about-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Menu Section */
+        .menu-controls {
+            max-width: 1100px;
+            margin: 0 auto 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--gold);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+
+        .diet-filters {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .diet-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .diet-btn .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .diet-btn.veg .dot { background: var(--veg-green); }
+        .diet-btn.non-veg .dot { background: var(--nonveg-red); }
+
+        .diet-btn.active {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .menu-item-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .veg-icon, .nonveg-icon {
+            width: 16px;
+            height: 16px;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .veg-icon { border-color: var(--veg-green); }
+        .nonveg-icon { border-color: var(--nonveg-red); }
+
+        .veg-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--veg-green);
+            border-radius: 50%;
+        }
+
+        .nonveg-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--nonveg-red);
+            border-radius: 50%;
+        }
+
+        .menu-item-price {
+            font-weight: 600;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .menu-item-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted rgba(255,255,255,0.2);
+            margin: 0 10px;
+            position: relative;
+            top: -5px;
+        }
+
+        .menu-item-category {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-card i {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        .contact-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: #fff;
+            font-family: var(--font-body);
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Policy & Footer */
+        .policy-section {
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .policy-section h2 {
+            font-family: var(--font-heading);
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .policy-section p {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #0a0a0a;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer .social-icons {
+            margin-bottom: 20px;
+        }
+
+        footer .social-icons a {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        footer .social-icons a:hover {
+            color: #fff;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                left: -280px;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 250px;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-tabs {
+                gap: 5px;
+            }
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>Tadka House</h2>
+                <p>Family Garden Restaurant</p>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="#menu"><i class="fas fa-utensils"></i> Our Menu</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                <li><a href="#policy"><i class="fas fa-shield-alt"></i> Policy</a></li>
+            </ul>
+            <div class="sidebar-cta">
+                <button class="btn-gold" onclick="alert('Booking feature coming soon! Call us at +91 98765 43210')">Book a Table</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Hero Section -->
+            <header id="home" class="hero">
+                <h1>Tadka House</h1>
+                <p>Family Garden Restaurant</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn-gold" style="width: auto; padding: 12px 30px;">View Menu</a>
+                    <a href="#contact" class="btn-outline">Contact Us</a>
+                </div>
+            </header>
+
+            <!-- About Section -->
+            <section id="about">
+                <div class="section-title">
+                    <h2>About Tadka House</h2>
+                    <div class="divider"></div>
+                    <p>Experience the perfect blend of nature and taste. A serene family garden setting serving authentic Indian, Chinese, and Tandoori delicacies.</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Family Garden</h3>
+                        <p>Dine under the open sky in our beautifully landscaped garden, perfect for family gatherings and special occasions.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-pepper-hot"></i>
+                        <h3>Authentic Taste</h3>
+                        <p>Our chefs use traditional recipes and freshly ground spices to bring you the true essence of Indian and Chinese cuisine.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Premium Quality</h3>
+                        <p>We source only the finest ingredients, ensuring every dish is a masterpiece of flavor, hygiene, and presentation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Menu Section -->
+            <section id="menu" style="background-color: #0a0a0a;">
+                <div class="section-title">
+                    <h2>Our Exquisite Menu</h2>
+                    <div class="divider"></div>
+                    <p>Explore our wide range of vegetarian and non-vegetarian delicacies crafted to perfection.</p>
+                </div>
+
+                <div class="menu-controls">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search for dishes (e.g., Paneer, Biryani, Soup)...">
+                    </div>
+                    
+                    <div class="filter-tabs" id="categoryFilters">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="soups">Soups</button>
+                        <button class="filter-btn" data-category="starters">Starters</button>
+                        <button class="filter-btn" data-category="tandoori">Tandoori</button>
+                        <button class="filter-btn" data-category="chinese-starters">Chinese Starters</button>
+                        <button class="filter-btn" data-category="main-course">Main Course</button>
+                        <button class="filter-btn" data-category="chinese-main">Chinese Main</button>
+                        <button class="filter-btn" data-category="rice-biryani">Rice & Biryani</button>
+                        <button class="filter-btn" data-category="egg">Egg Station</button>
+                        <button class="filter-btn" data-category="seafood">Seafood & Sizzling</button>
+                    </div>
+
+                    <div class="diet-filters">
+                        <button class="diet-btn active" id="filterAll"><i class="fas fa-utensils"></i> All</button>
+                        <button class="diet-btn veg" id="filterVeg"><span class="dot"></span> Veg Only</button>
+                        <button class="diet-btn non-veg" id="filterNonVeg"><span class="dot"></span> Non-Veg Only</button>
+                    </div>
+                </div>
+
+                <div class="menu-grid" id="menuGrid">
+                    <!-- Menu items will be injected here via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact">
+                <div class="section-title">
+                    <h2>Contact Us</h2>
+                    <div class="divider"></div>
+                    <p>We'd love to hear from you. Reserve your table or drop us a message.</p>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>123 Garden Avenue, Near City Mall,<br>Kolkata, West Bengal 700001</p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+91 98765 43210<br>+91 98765 43211</p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Opening Hours</h4>
+                                <p>Mon - Sun: 11:00 AM - 11:00 PM<br>Open All Days</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Send a Message</h3>
+                        <form onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.');">
+                            <div class="form-group">
+                                <input type="text" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-gold">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Policy Section -->
+            <section id="policy" class="policy-section">
+                <h2>Privacy Policy</h2>
+                <p>At Tadka House, we value your privacy. We only collect personal information (such as name, email, and phone number) when voluntarily submitted by our visitors for reservation or inquiry purposes.</p>
+                <p>We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties. This information is used solely to improve our services and respond to your requests.</p>
+                <p>By using our website, you consent to our privacy policy. Any changes to our policy will be posted on this page.</p>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p>&copy; 2024 Tadka House Family Garden Restaurant. All Rights Reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // --- MENU DATA (Extracted from the 4 images) ---
+        const menuData = [
+            // Soups
+            { name: "Cream Of Tomato Soup", price: "190", category: "soups", type: "veg" },
+            { name: "Lemon Coriander Veg Soup", price: "190", category: "soups", type: "veg" },
+            { name: "Veg Clear Soup", price: "190", category: "soups", type: "veg" },
+            { name: "Veg Hot N Sour Soup", price: "210", category: "soups", type: "veg" },
+            { name: "Veg Manchow Soup", price: "210", category: "soups", type: "veg" },
+            { name: "Cream Of Veg Soup", price: "230", category: "soups", type: "veg" },
+            { name: "Cream Of Mushroom Soup", price: "230", category: "soups", type: "veg" },
+            { name: "Chicken Clear Soup", price: "210", category: "soups", type: "non-veg" },
+            { name: "Chicken Lemon Coriander Soup", price: "230", category: "soups", type: "non-veg" },
+            { name: "Chicken Hot N Sour Soup", price: "240", category: "soups", type: "non-veg" },
+            { name: "Chicken Manchow Soup", price: "240", category: "soups", type: "non-veg" },
+            { name: "Cream Of Chicken Soup", price: "260", category: "soups", type: "non-veg" },
+
+            // Starters (Veg)
+            { name: "French Fries", price: "210", category: "starters", type: "veg" },
+            { name: "Peri Peri Fries", price: "240", category: "starters", type: "veg" },
+            { name: "Peanut Fry / Masala", price: "250", category: "starters", type: "veg" },
+            { name: "Green Peas Garlic Jeera Fry", price: "250", category: "starters", type: "veg" },
+            { name: "Butter Cheese Corn", price: "300", category: "starters", type: "veg" },
+            { name: "Cheese Corn Tikki", price: "310", category: "starters", type: "veg" },
+            { name: "Hara Bhara Kabab", price: "320", category: "starters", type: "veg" },
+            { name: "Cheese Ball", price: "350", category: "starters", type: "veg" },
+
+            // Starters (Non-Veg)
+            { name: "Bhuna Chicken", price: "270 / 400", category: "starters", type: "non-veg" },
+            { name: "Bhuna Khur", price: "300 / 440", category: "starters", type: "non-veg" },
+            { name: "Keema Kaleji Roast", price: "300 / 420", category: "starters", type: "non-veg" },
+            { name: "Bhuna Mutton", price: "300 / 440", category: "starters", type: "non-veg" },
+            { name: "Mutton Keema Roast", price: "300 / 440", category: "starters", type: "non-veg" },
+            { name: "Fish Finger", price: "420", category: "starters", type: "non-veg" },
+            { name: "Fish Fry", price: "420", category: "starters", type: "non-veg" },
+            { name: "Fish Bhuna", price: "450", category: "starters", type: "non-veg" },
+            { name: "Fish Amritsari", price: "470", category: "starters", type: "non-veg" },
+            { name: "Bhuna Prawns", price: "490", category: "starters", type: "non-veg" },
+            { name: "Golden Fried Prawns", price: "550", category: "starters", type: "non-veg" },
+
+            // Tandoori Starters (Veg)
+            { name: "Dahi Ke Angare", price: "320", category: "tandoori", type: "veg" },
+            { name: "Veg Seekh Kabab", price: "320", category: "tandoori", type: "veg" },
+            { name: "Paneer Tikkaa", price: "330", category: "tandoori", type: "veg" },
+            { name: "Stuffed Mushroom Tikka", price: "340", category: "tandoori", type: "veg" },
+            { name: "Paneer Pahadi Tikka", price: "340", category: "tandoori", type: "veg" },
+            { name: "Paneer Burnt Garlic Tikka", price: "340", category: "tandoori", type: "veg" },
+            { name: "Veg Cheese Seekh Kabab", price: "350", category: "tandoori", type: "veg" },
+            { name: "Paneer Papdi Kabab", price: "360", category: "tandoori", type: "veg" },
+            { name: "Paneer Malai Tikkaa", price: "360", category: "tandoori", type: "veg" },
+            { name: "Paneer Malwani Tikka", price: "360", category: "tandoori", type: "veg" },
+            { name: "Paneer Parda", price: "370", category: "tandoori", type: "veg" },
+            { name: "Veg Platter", price: "850", category: "tandoori", type: "veg" },
+
+            // Tandoori Starters (Non-Veg)
+            { name: "Tandoori Chicken", price: "350 / 590", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Tikka", price: "360", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Pahadi Tikka", price: "370", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Achaari Tikka", price: "380", category: "tandoori", type: "non-veg" },
+            { name: "Kalimirch Chicken Tikka", price: "400", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Burnt Garlic Tikka", price: "400", category: "tandoori", type: "non-veg" },
+            { name: "Fish Tikka", price: "410", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Malai Tikka", price: "410", category: "tandoori", type: "non-veg" },
+            { name: "Chicken Malwani Tikka", price: "420", category: "tandoori", type: "non-veg" },
+            { name: "Murgh Pallu Kabab", price: "420", category: "tandoori", type: "non-veg" },
+            { name: "Fish Amritsari Tikka", price: "430", category: "tandoori", type: "non-veg" },
+            { name: "Fish Garlic Tikka", price: "450", category: "tandoori", type: "non-veg" },
+            { name: "Prawns Tikka", price: "470", category: "tandoori", type: "non-veg" },
+            { name: "Prawns Garlic Tikka", price: "500", category: "tandoori", type: "non-veg" },
+            { name: "Non-veg Platter", price: "1100", category: "tandoori", type: "non-veg" },
+
+            // Chinese Starters (Veg)
+            { name: "Veg Manchurian", price: "310", category: "chinese-starters", type: "veg" },
+            { name: "Chilli Corn", price: "310", category: "chinese-starters", type: "veg" },
+            { name: "Crispy Corn", price: "310", category: "chinese-starters", type: "veg" },
+            { name: "Crispy Veg", price: "310", category: "chinese-starters", type: "veg" },
+            { name: "Chilli Paneer", price: "320", category: "chinese-starters", type: "veg" },
+            { name: "Paneer 65", price: "320", category: "chinese-starters", type: "veg" },
+            { name: "Garlic Paneer", price: "320", category: "chinese-starters", type: "veg" },
+            { name: "Baby Corn Chilli", price: "330", category: "chinese-starters", type: "veg" },
+            { name: "Chilli Mushroom", price: "330", category: "chinese-starters", type: "veg" },
+            { name: "Mustard Veg", price: "330", category: "chinese-starters", type: "veg" },
+            { name: "Black Pepper Paneer", price: "350", category: "chinese-starters", type: "veg" },
+            { name: "Black Pepper Mushroom", price: "350", category: "chinese-starters", type: "veg" },
+            { name: "Mustard Panner", price: "380", category: "chinese-starters", type: "veg" },
+
+            // Chinese Starters (Non-Veg)
+            { name: "Chilli Egg", price: "310", category: "chinese-starters", type: "non-veg" },
+            { name: "Chicken Manchurian", price: "360", category: "chinese-starters", type: "non-veg" },
+            { name: "Chicken 65", price: "380", category: "chinese-starters", type: "non-veg" },
+            { name: "Schezan Chicken", price: "380", category: "chinese-starters", type: "non-veg" },
+            { name: "Crispy Chicken", price: "380", category: "chinese-starters", type: "non-veg" },
+            { name: "Black Pepper Chicken", price: "380", category: "chinese-starters", type: "non-veg" },
+            { name: "Garlic Chicken", price: "390", category: "chinese-starters", type: "non-veg" },
+            { name: "Kalimirch Chicken Tikka", price: "400", category: "chinese-starters", type: "non-veg" },
+            { name: "Chilli Chicken", price: "410", category: "chinese-starters", type: "non-veg" },
+            { name: "Fish Salt & Pepper", price: "430", category: "chinese-starters", type: "non-veg" },
+            { name: "Chicken Lollipop", price: "440", category: "chinese-starters", type: "non-veg" },
+            { name: "Chilli Fish", price: "440", category: "chinese-starters", type: "non-veg" },
+            { name: "Black Pepper Fish", price: "470", category: "chinese-starters", type: "non-veg" },
+            { name: "Chilli Prawns", price: "480", category: "chinese-starters", type: "non-veg" },
+            { name: "Prawns 65", price: "480", category: "chinese-starters", type: "non-veg" },
+            { name: "Prawns Salt & Pepper", price: "480", category: "chinese-starters", type: "non-veg" },
+
+            // Egg Station
+            { name: "Boiled Egg/Fry", price: "100", category: "egg", type: "non-veg" },
+            { name: "Egg Omelette", price: "180", category: "egg", type: "non-veg" },
+            { name: "Egg Half Fry", price: "210", category: "egg", type: "non-veg" },
+            { name: "Egg Bhurji", price: "220", category: "egg", type: "non-veg" },
+            { name: "Egg Cheese Omelette", price: "260", category: "egg", type: "non-veg" },
+            { name: "Egg Bhurji Curry", price: "270", category: "egg", type: "non-veg" },
+            { name: "Egg Masala", price: "280", category: "egg", type: "non-veg" },
+            { name: "Egg Curry", price: "280", category: "egg", type: "non-veg" },
+
+            // Rice & Biryani
+            { name: "Steam Rice", price: "190", category: "rice-biryani", type: "veg" },
+            { name: "Jeera Rice", price: "220", category: "rice-biryani", type: "veg" },
+            { name: "Garlic Jeera Rice", price: "250", category: "rice-biryani", type: "veg" },
+            { name: "Curd Rice", price: "250", category: "rice-biryani", type: "veg" },
+            { name: "Biryani Rice", price: "250", category: "rice-biryani", type: "veg" },
+            { name: "Dal Khichdi", price: "280", category: "rice-biryani", type: "veg" },
+            { name: "Masala Khichdi", price: "300", category: "rice-biryani", type: "veg" },
+            { name: "Butter Dal Khichdi", price: "300", category: "rice-biryani", type: "veg" },
+            { name: "Veg Pulao", price: "310", category: "rice-biryani", type: "veg" },
+            { name: "Green Peas Pulao", price: "310", category: "rice-biryani", type: "veg" },
+            { name: "Kashmiri Pulao", price: "330", category: "rice-biryani", type: "veg" },
+            { name: "Dal Fry", price: "200", category: "rice-biryani", type: "veg" },
+            { name: "Jeera Dal", price: "200", category: "rice-biryani", type: "veg" },
+            { name: "Dal Tadka", price: "230", category: "rice-biryani", type: "veg" },
+            { name: "Dal Kolhapuri", price: "250", category: "rice-biryani", type: "veg" },
+            { name: "Dhaba Dal", price: "280", category: "rice-biryani", type: "veg" },
+            { name: "Snack Dal", price: "290", category: "rice-biryani", type: "veg" },
+            { name: "Curd Kachumber", price: "170", category: "rice-biryani", type: "veg" },
+            { name: "Plain Curd", price: "100", category: "rice-biryani", type: "veg" },
+            { name: "Mix Raita", price: "150", category: "rice-biryani", type: "veg" },
+            { name: "Boondi Raita", price: "130", category: "rice-biryani", type: "veg" },
+            { name: "Pineapple Raita", price: "160", category: "rice-biryani", type: "veg" },
+            { name: "Veg Biryani", price: "300", category: "rice-biryani", type: "veg" },
+            { name: "Egg Biryani", price: "300", category: "rice-biryani", type: "non-veg" },
+            { name: "Paneer Tikka Biryani", price: "350", category: "rice-biryani", type: "veg" },
+            { name: "Handi Dum Biryani Chicken Full", price: "350", category: "rice-biryani", type: "non-veg" },
+            { name: "Handi Dum Biryani Mutton Full", price: "450", category: "rice-biryani", type: "non-veg" },
+
+            // Main Course (Veg & Paneer)
+            { name: "Veg Kolhapuri", price: "320", category: "main-course", type: "veg" },
+            { name: "Veg Jaipuri", price: "330", category: "main-course", type: "veg" },
+            { name: "Kadhai Veg", price: "350", category: "main-course", type: "veg" },
+            { name: "Mix Vegetable", price: "350", category: "main-course", type: "veg" },
+            { name: "Veg Kofta Curry", price: "350", category: "main-course", type: "veg" },
+            { name: "Veg Diwani Handi", price: "350", category: "main-course", type: "veg" },
+            { name: "Lasooni Palak", price: "350", category: "main-course", type: "veg" },
+            { name: "Green Peas Masala", price: "380", category: "main-course", type: "veg" },
+            { name: "Veg Kema Kasturi", price: "380", category: "main-course", type: "veg" },
+            { name: "Veg Takatak", price: "380", category: "main-course", type: "veg" },
+            { name: "Veg Jalfrezi", price: "380", category: "main-course", type: "veg" },
+            { name: "Veg Egg Curry", price: "380", category: "main-course", type: "veg" },
+            { name: "Malai Methi Mutter", price: "410", category: "main-course", type: "veg" },
+            { name: "Malai Kofta", price: "430", category: "main-course", type: "veg" },
+            { name: "Veg Navratan Korma", price: "430", category: "main-course", type: "veg" },
+            { name: "Cheese Butter Masala", price: "450", category: "main-course", type: "veg" },
+            { name: "Paneer Mushroom Masala", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Bhurji", price: "360", category: "main-course", type: "veg" },
+            { name: "Mutter Paneer", price: "370", category: "main-course", type: "veg" },
+            { name: "Paneer Waradi", price: "370", category: "main-course", type: "veg" },
+            { name: "Paneer Kolhapuri", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Jalfrezi", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Chaptata", price: "380", category: "main-course", type: "veg" },
+            { name: "Punjabi Paneer Masala", price: "380", category: "main-course", type: "veg" },
+            { name: "Kadai Paneer", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Masala", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Bhurji Curry", price: "380", category: "main-course", type: "veg" },
+            { name: "Mushroom Masala", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Lajawab", price: "380", category: "main-course", type: "veg" },
+            { name: "Paneer Lachhedar", price: "390", category: "main-course", type: "veg" },
+            { name: "Paneer Takatak", price: "390", category: "main-course", type: "veg" },
+            { name: "Palak Paneer", price: "390", category: "main-course", type: "veg" },
+            { name: "Paneer Do Pyaza", price: "400", category: "main-course", type: "veg" },
+            { name: "Paneer Patiyala", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Butter Masala", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Tikka Masala", price: "410", category: "main-course", type: "veg" },
+            { name: "Shahi Paneer", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Rimjhim", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Masoori", price: "410", category: "main-course", type: "veg" },
+            { name: "Paneer Lababdar", price: "420", category: "main-course", type: "veg" },
+            { name: "Mushroom Baby Corn Masala", price: "420", category: "main-course", type: "veg" },
+            { name: "Mushroom Tikka Masala", price: "420", category: "main-course", type: "veg" },
+            { name: "Kaju Curry", price: "450", category: "main-course", type: "veg" },
+            { name: "Kaju Masala", price: "450", category: "main-course", type: "veg" },
+
+            // Chinese Main Course (Veg)
+            { name: "Veg Fried Rice", price: "270", category: "chinese-main", type: "veg" },
+            { name: "Veg Hakka Noodles", price: "290", category: "chinese-main", type: "veg" },
+            { name: "Veg Schyzwan Fried Rice", price: "300", category: "chinese-main", type: "veg" },
+            { name: "Veg Chinese Chopsuey", price: "320", category: "chinese-main", type: "veg" },
+            { name: "Veg Schyzwan Hakka Noodles", price: "330", category: "chinese-main", type: "veg" },
+            { name: "Veg American Chopsuey", price: "330", category: "chinese-main", type: "veg" },
+            { name: "Veg Triple Schezwan Fried Rice", price: "380", category: "chinese-main", type: "veg" },
+
+            // Chinese Main Course (Non-Veg)
+            { name: "Egg Noodles", price: "270", category: "chinese-main", type: "non-veg" },
+            { name: "Egg Fried Rice", price: "290", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Fried Rice", price: "340", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Schezwan Fried Rice", price: "350", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Hakka Noodles", price: "350", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Schezwan Noodles", price: "350", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Chinese Chopsuey", price: "350", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken American Chopsuey", price: "390", category: "chinese-main", type: "non-veg" },
+            { name: "Chicken Triple Schezwan Fried Rice", price: "430", category: "chinese-main", type: "non-veg" },
+
+            // Seafood & Sizzling
+            { name: "Fish Curry", price: "430", category: "seafood", type: "non-veg" },
+            { name: "Fish Masala", price: "450", category: "seafood", type: "non-veg" },
+            { name: "Fish Tikka Masala", price: "480", category: "seafood", type: "non-veg" },
+            { name: "Prawns Curry", price: "480", category: "seafood", type: "non-veg" },
+            { name: "Veg Angara", price: "410", category: "seafood", type: "veg" },
+            { name: "Paneer Angara", price: "480", category: "seafood", type: "veg" },
+            { name: "Chicken Angara", price: "480", category: "seafood", type: "non-veg" },
+            { name: "Mutton Angara", price: "520", category: "seafood", type: "non-veg" }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const menuGrid = document.getElementById('menuGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilters = document.getElementById('categoryFilters');
+        const filterAll = document.getElementById('filterAll');
+        const filterVeg = document.getElementById('filterVeg');
+        const filterNonVeg = document.getElementById('filterNonVeg');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        // --- STATE ---
+        let currentCategory = 'all';
+        let currentDiet = 'all';
+        let searchQuery = '';
+
+        // --- RENDER MENU ---
+        function renderMenu() {
+            menuGrid.innerHTML = '';
+            
+            const filteredData = menuData.filter(item => {
+                const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchesDiet = currentDiet === 'all' || item.type === currentDiet;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesDiet && matchesSearch;
+            });
+
+            if (filteredData.length === 0) {
+                menuGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">No dishes found matching your criteria.</p>`;
+                return;
+            }
+
+            filteredData.forEach(item => {
+                const dietIcon = item.type === 'veg' 
+                    ? '<span class="veg-icon"></span>' 
+                    : '<span class="nonveg-icon"></span>';
+                
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    <div class="menu-item-header">
+                        <div class="menu-item-title">
+                            ${dietIcon}
+                            ${item.name}
+                        </div>
+                        <div class="menu-item-dots"></div>
+                        <div class="menu-item-price">₹${item.price}</div>
+                    </div>
+                    <div class="menu-item-category">${item.category.replace('-', ' ')}</div>
+                `;
+                menuGrid.appendChild(div);
+            });
+        }
+
+        // --- EVENT LISTENERS ---
+
+        // Search
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderMenu();
+        });
+
+        // Category Filters
+        categoryFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.dataset.category;
+                renderMenu();
+            }
+        });
+
+        // Diet Filters
+        filterAll.addEventListener('click', () => {
+            document.querySelectorAll('.diet-btn').forEach(btn => btn.classList.remove('active'));
+            filterAll.classList.add('active');
+            currentDiet = 'all';
+            renderMenu();
+        });
+
+        filterVeg.addEventListener('click', () => {
+            document.querySelectorAll('.diet-btn').forEach(btn => btn.classList.remove('active'));
+            filterVeg.classList.add('active');
+            currentDiet = 'veg';
+            renderMenu();
+        });
+
+        filterNonVeg.addEventListener('click', () => {
+            document.querySelectorAll('.diet-btn').forEach(btn => btn.classList.remove('active'));
+            filterNonVeg.classList.add('active');
+            currentDiet = 'non-veg';
+            renderMenu();
+        });
+
+        // Mobile Sidebar Toggle
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close sidebar on link click (Mobile)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+
+        // Active link on scroll (Simple implementation)
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section, header');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initial Render
+        renderMenu();
+
+    </script>
+</body>
+</html>
